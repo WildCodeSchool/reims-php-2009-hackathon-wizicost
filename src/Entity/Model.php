@@ -40,9 +40,15 @@ class Model
      */
     private Collection $options;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Resource::class, mappedBy="model")
+     */
+    private $resources;
+
     public function __construct()
     {
         $this->options = new ArrayCollection();
+        $this->resources = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -110,6 +116,36 @@ class Model
             // set the owning side to null (unless already changed)
             if ($option->getModel() === $this) {
                 $option->setModel(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Resource[]
+     */
+    public function getResources(): Collection
+    {
+        return $this->resources;
+    }
+
+    public function addResource(Resource $resource): self
+    {
+        if (!$this->resources->contains($resource)) {
+            $this->resources[] = $resource;
+            $resource->setModel($this);
+        }
+
+        return $this;
+    }
+
+    public function removeResource(Resource $resource): self
+    {
+        if ($this->resources->removeElement($resource)) {
+            // set the owning side to null (unless already changed)
+            if ($resource->getModel() === $this) {
+                $resource->setModel(null);
             }
         }
 
