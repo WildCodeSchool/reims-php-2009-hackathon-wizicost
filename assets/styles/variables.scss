@@ -1,2 +1,10 @@
-$wild-color: #ff6c71;
-$light-color: #fffbfb;
+$bg-color: #f5f5f5;
+
+@font-face{
+    font-family: "Montserat";
+    src: url("../fonts/Montserrat.woff2") format("truetype");
+}
+@font-face{
+    font-family: "OpenSans";
+    src: url("../fonts/OpenSans.woff2") format("truetype");
+}
