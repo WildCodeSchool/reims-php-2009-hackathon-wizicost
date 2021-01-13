@@ -47,6 +47,11 @@ class Resource
      */
     private $user;
 
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private int $cost;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -120,6 +125,18 @@ class Resource
     public function setUser(?User $user): self
     {
         $this->user = $user;
+
+        return $this;
+    }
+
+    public function getCost(): ?int
+    {
+        return $this->cost;
+    }
+
+    public function setCost(?int $cost): self
+    {
+        $this->cost = $cost;
 
         return $this;
     }
