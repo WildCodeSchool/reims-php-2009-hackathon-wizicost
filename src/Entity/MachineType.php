@@ -35,9 +35,15 @@ class MachineType
      */
     private Collection $models;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Resource::class, mappedBy="machineType")
+     */
+    private $resources;
+
     public function __construct()
     {
         $this->models = new ArrayCollection();
+        $this->resources = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -93,6 +99,36 @@ class MachineType
             // set the owning side to null (unless already changed)
             if ($model->getMachine() === $this) {
                 $model->setMachine(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Resource[]
+     */
+    public function getResources(): Collection
+    {
+        return $this->resources;
+    }
+
+    public function addResource(Resource $resource): self
+    {
+        if (!$this->resources->contains($resource)) {
+            $this->resources[] = $resource;
+            $resource->setMachineType($this);
+        }
+
+        return $this;
+    }
+
+    public function removeResource(Resource $resource): self
+    {
+        if ($this->resources->removeElement($resource)) {
+            // set the owning side to null (unless already changed)
+            if ($resource->getMachineType() === $this) {
+                $resource->setMachineType(null);
             }
         }
 

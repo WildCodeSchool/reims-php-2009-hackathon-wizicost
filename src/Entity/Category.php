@@ -29,9 +29,15 @@ class Category
      */
     private Collection $machineTypes;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Resource::class, mappedBy="category")
+     */
+    private $resources;
+
     public function __construct()
     {
         $this->machineTypes = new ArrayCollection();
+        $this->resources = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -75,6 +81,36 @@ class Category
             // set the owning side to null (unless already changed)
             if ($machineType->getCategory() === $this) {
                 $machineType->setCategory(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Resource[]
+     */
+    public function getResources(): Collection
+    {
+        return $this->resources;
+    }
+
+    public function addResource(Resource $resource): self
+    {
+        if (!$this->resources->contains($resource)) {
+            $this->resources[] = $resource;
+            $resource->setCategory($this);
+        }
+
+        return $this;
+    }
+
+    public function removeResource(Resource $resource): self
+    {
+        if ($this->resources->removeElement($resource)) {
+            // set the owning side to null (unless already changed)
+            if ($resource->getCategory() === $this) {
+                $resource->setCategory(null);
             }
         }
 
