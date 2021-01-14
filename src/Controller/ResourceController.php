@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Resource;
+use App\Entity\Category;
 use App\Form\ResourceType;
 use App\Repository\ResourceRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -88,10 +89,11 @@ class ResourceController extends AbstractController
     }
 
     /**
-     * @Route("/{id}/newMachineType", name="resource_new_machine_type", methods={"GET","POST"})
+     * @Route("/{resource}/{category}/newMachineType", name="resource_new_machine_type", methods={"GET","POST"})
      */
-    public function newMachineTypeForResource(Resource $resource, Request $request): Response
+    public function newMachineTypeForResource(Resource $resource, Category $category, Request $request): Response
     {
+        $resource->setCategory($category);
         $formMachineType = $this->createForm(ResourceMachineType::class, $resource);
         $formMachineType->handleRequest($request);
         if ($formMachineType->isSubmitted() && $formMachineType->isValid()) {

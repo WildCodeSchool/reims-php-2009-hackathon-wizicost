@@ -3,7 +3,7 @@
 {% block body %}
 {% for category in categories %}
 <section class = "category">
-    <a href = "{{ path('resource_new_machine_type', {'id' : resource.id}) }}"><img src = "{{ asset('/build/images/' ~ category.id ~ '.png') }}" style = "width: 200px; height:auto;"></a>
+    <a href = "{{ path('resource_new_machine_type', {'resource' : resource.id, 'category' : category.id}) }}"><img src = "{{ asset('/build/images/' ~ category.id ~ '.png') }}" style = "width: 200px; height:auto;"></a>
     <h2>{{ category.name}}</h2>
 </section>
 {% endfor %}
