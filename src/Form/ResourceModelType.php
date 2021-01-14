@@ -6,6 +6,7 @@ use App\Entity\Resource;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\NumberType;
 
 class ResourceModelType extends AbstractType
 {
@@ -13,6 +14,7 @@ class ResourceModelType extends AbstractType
     {
         $builder
             ->add('model', null, ['choice_label' => 'nameModel'])
+            ->add('cost', NumberType::class)
         ;
     }
 
