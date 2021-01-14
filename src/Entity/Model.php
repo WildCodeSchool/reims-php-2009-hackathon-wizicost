@@ -22,18 +22,7 @@ class Model
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private string $NameBrand;
-
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private string $NameModel;
-
-    /**
-     * @ORM\ManyToOne(targetEntity=MachineType::class, inversedBy="models")
-     * @ORM\JoinColumn(nullable=false)
-     */
-    private ?MachineType $Machine;
+    private string $Model;
 
     /**
      * @ORM\OneToMany(targetEntity=Option::class, mappedBy="Model")
@@ -44,6 +33,11 @@ class Model
      * @ORM\OneToMany(targetEntity=Resource::class, mappedBy="model")
      */
     private $resources;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Brand::class, inversedBy="model")
+     */
+    private $brand;
 
     public function __construct()
     {
@@ -56,41 +50,18 @@ class Model
         return $this->id;
     }
 
-    public function getNameBrand(): ?string
+    public function getModel(): ?string
     {
-        return $this->NameBrand;
+        return $this->Model;
     }
 
-    public function setNameBrand(string $nameBrand): self
+    public function setModel(string $Model): self
     {
-        $this->NameBrand = $nameBrand;
+        $this->Model = $Model;
 
         return $this;
     }
 
-    public function getNameModel(): ?string
-    {
-        return $this->NameModel;
-    }
-
-    public function setNameModel(string $nameModel): self
-    {
-        $this->NameModel = $nameModel;
-
-        return $this;
-    }
-
-    public function getMachine(): ?MachineType
-    {
-        return $this->Machine;
-    }
-
-    public function setMachine(?MachineType $machine): self
-    {
-        $this->Machine = $machine;
-
-        return $this;
-    }
 
     /**
      * @return Collection|Option[]
@@ -148,6 +119,18 @@ class Model
                 $resource->setModel(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getBrand(): ?Brand
+    {
+        return $this->brand;
+    }
+
+    public function setBrand(?Brand $brand): self
+    {
+        $this->brand = $brand;
 
         return $this;
     }

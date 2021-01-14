@@ -31,19 +31,19 @@ class MachineType
     private ?Category $Category;
 
     /**
-     * @ORM\OneToMany(targetEntity=Model::class, mappedBy="Machine")
-     */
-    private Collection $models;
-
-    /**
      * @ORM\OneToMany(targetEntity=Resource::class, mappedBy="machineType")
      */
     private $resources;
 
+    /**
+     * @ORM\ManyToMany(targetEntity=Brand::class, mappedBy="machineType")
+     */
+    private $brands;
+
     public function __construct()
     {
-        $this->models = new ArrayCollection();
         $this->resources = new ArrayCollection();
+        $this->brands = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -76,36 +76,6 @@ class MachineType
     }
 
     /**
-     * @return Collection|Model[]
-     */
-    public function getModels(): Collection
-    {
-        return $this->models;
-    }
-
-    public function addModel(Model $model): self
-    {
-        if (!$this->models->contains($model)) {
-            $this->models[] = $model;
-            $model->setMachine($this);
-        }
-
-        return $this;
-    }
-
-    public function removeModel(Model $model): self
-    {
-        if ($this->models->removeElement($model)) {
-            // set the owning side to null (unless already changed)
-            if ($model->getMachine() === $this) {
-                $model->setMachine(null);
-            }
-        }
-
-        return $this;
-    }
-
-    /**
      * @return Collection|Resource[]
      */
     public function getResources(): Collection
@@ -130,6 +100,33 @@ class MachineType
             if ($resource->getMachineType() === $this) {
                 $resource->setMachineType(null);
             }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Brand[]
+     */
+    public function getBrands(): Collection
+    {
+        return $this->brands;
+    }
+
+    public function addBrand(Brand $brand): self
+    {
+        if (!$this->brands->contains($brand)) {
+            $this->brands[] = $brand;
+            $brand->addMachineType($this);
+        }
+
+        return $this;
+    }
+
+    public function removeBrand(Brand $brand): self
+    {
+        if ($this->brands->removeElement($brand)) {
+            $brand->removeMachineType($this);
         }
 
         return $this;

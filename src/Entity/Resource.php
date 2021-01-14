@@ -52,6 +52,11 @@ class Resource
      */
     private int $cost;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=Brand::class, inversedBy="resources")
+     */
+    private $brand;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -137,6 +142,18 @@ class Resource
     public function setCost(?int $cost): self
     {
         $this->cost = $cost;
+
+        return $this;
+    }
+
+    public function getBrand(): ?Brand
+    {
+        return $this->brand;
+    }
+
+    public function setBrand(?Brand $brand): self
+    {
+        $this->brand = $brand;
 
         return $this;
     }
