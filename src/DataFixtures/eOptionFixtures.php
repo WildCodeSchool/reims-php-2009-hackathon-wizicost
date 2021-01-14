@@ -6,7 +6,7 @@ use App\Entity\Option;
 use Doctrine\Persistence\ObjectManager;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 
-class OptionFixtures extends Fixture
+class EoptionFixtures extends Fixture
 {
     private const OPTIONS = [
         'Gps',

@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Resource;
 use App\Entity\Category;
 use App\Entity\MachineType;
+use App\Form\ModelType;
 use App\Form\ResourceType;
 use App\Repository\ResourceRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -17,8 +18,10 @@ use App\Form\ResourceCategoryType;
 use App\Form\ResourceMachineType;
 use App\Form\ResourceModelType;
 use App\Form\ResourceOptionType;
+use App\Repository\BrandRepository;
 use App\Repository\CategoryRepository;
 use App\Repository\MachineTypeRepository;
+use App\Repository\ModelRepository;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 
 /**
@@ -97,10 +100,15 @@ class ResourceController extends AbstractController
         $formMachineType->add('machineType', ChoiceType::class, ['choices' => $machineTypes]);
         $formMachineType->handleRequest($request);
         if ($formMachineType->isSubmitted() && $formMachineType->isValid()) {
+            $ResourceMachineType = $formMachineType->get('machineType')->getData();
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($resource);
             $entityManager->flush();
-            return $this->redirectToRoute('resource_new_model', ['id' => $resource->getid(), $request]);
+            return $this->redirectToRoute('resource_new_model', [
+                'resource' => $resource->getid(),
+                'category' => $category->getId(),
+                'machineType' => $ResourceMachineType,
+                $request]);
         }
         return $this->render('resource/new.html.twig', [
             'resource' => $resource,
@@ -110,11 +118,51 @@ class ResourceController extends AbstractController
     }
 
      /**
-     * @Route("/{id}/newModel", name="resource_new_model", methods={"GET","POST"})
+     * @Route("/{resource}/{category}/{machineType}/newBrand", name="resource_new_brand", methods={"GET","POST"})
      */
-    public function newModelForResource(Resource $resource, Request $request): Response
+    public function newBrandForResource(Resource $resource, Category $category, MachineType $machineType, Request $request, BrandRepository $brandRepository): Response
     {
+        $brandObjects = $brandRepository->findBy(['Category' => $category]);
+        $brands = [];
+
+        $formbrand = $this->createForm(Resourcebrand::class, $resource);
+        foreach ($brandObjects as $brandObject) {
+            $brand = $brandObject->getBrand();
+            $brands[$brand] = $brandObject->getId();
+        }
+        $formbrand->add('brand', ChoiceType::class, ['choices' => $brands]);
+        $formbrand->handleRequest($request);
+        if ($formbrand->isSubmitted() && $formbrand->isValid()) {
+            $Resourcebrand = $formbrand->get('brand')->getData();
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($resource);
+            $entityManager->flush();
+            return $this->redirectToRoute('resource_new_model', [
+                'resource' => $resource->getid(),
+                'category' => $category->getId(),
+                'brand' => $Resourcebrand,
+                $request]);
+        }
+        return $this->render('resource/new.html.twig', [
+            'resource' => $resource,
+            'form' => $formbrand->createView(),
+            'brands' => $brands,
+        ]);
+    }
+
+     /**
+     * @Route("/{resource}/{category}/{machineType}/newModel", name="resource_new_model", methods={"GET","POST"})
+     */
+    public function newModelForResource(Resource $resource, Category $category, MachineType $machineType, ModelRepository $modelRepository, Request $request): Response
+    {
+        $modelObjects = $modelRepository->findBy(['machineType' => $machineType]);
+        $models = [];
         $formModel = $this->createForm(ResourceModelType::class, $resource);
+        foreach ($modelObjects as $modelObject) {
+            $model = $modelObject->getBrand();
+            $models[$model] = $modelObject->getId();
+        }
+        $formModel->add('model', ChoiceType::class, ['choices' => $models]);
         $formModel->handleRequest($request);
         if ($formModel->isSubmitted() && $formModel->isValid()) {
             $entityManager = $this->getDoctrine()->getManager();
