@@ -39,6 +39,11 @@ class Model
      */
     private $brand;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=machineType::class, inversedBy="models")
+     */
+    private $machineType;
+
     public function __construct()
     {
         $this->options = new ArrayCollection();
@@ -131,6 +136,18 @@ class Model
     public function setBrand(?Brand $brand): self
     {
         $this->brand = $brand;
+
+        return $this;
+    }
+
+    public function getMachineType(): ?machineType
+    {
+        return $this->machineType;
+    }
+
+    public function setMachineType(?machineType $machineType): self
+    {
+        $this->machineType = $machineType;
 
         return $this;
     }
