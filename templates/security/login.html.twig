@@ -6,7 +6,7 @@
     <section class="container">
         <div class="top-bar">
         </div>
-        <div class="center-block">
+        <div class="center-block-login">
             <form method="post">
                 {% if error %}
                     <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
@@ -42,7 +42,7 @@
                 <button class="btn btn-lg btn-primary" type="submit">
                     Connexion
                 </button>
-                <a href="/">Retour</a>
+            <a href="/">Retour à l'accueil</a>
             </form>
         </div>
         <div class="bottom-bar">

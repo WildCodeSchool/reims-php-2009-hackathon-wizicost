@@ -1,11 +1,25 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}New Resource{% endblock %}
+{% block title %}Nouvelle simulation{{ parent() }}{% endblock %}
 
 {% block body %}
-    <h1>Create new Resource</h1>
+    <section class="container">
+        <div class="top-bar">
+            <div class="top-brand-name">
+                <div class="wizi-white">Wizi</div>
+                <div class="cost-white">Cost</div>
+            </div>
+        </div>
+        <div class="center-block-new-simulation">
+            <h1>Nouvelle simulation</h1>
 
-    {{ include('resource/_form.html.twig') }}
+            {{ include('resource/_form.html.twig') }}
 
-    <a href="{{ path('resource_index') }}">back to list</a>
+            <a href="{{ path('resource_index') }}">Toutes mes simulations</a>
+            <a href="/">Retour à l'accueil</a>
+            </div>
+        </div>
+        <div class="bottom-bar">
+        </div>
+    <section>
 {% endblock %}
