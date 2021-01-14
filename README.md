@@ -7,5 +7,7 @@ Screenshots and vid previews will be available soon, if you want to download and
 *run composer install
 *run yarn install
 *run yarn encore dev
+*run symfony console doctrine:database:create
+*run symfony console doctrine:migrations:migrate
 *run symfony server:start
 *Enjoy !
