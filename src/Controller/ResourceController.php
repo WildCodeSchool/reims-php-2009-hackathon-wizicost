@@ -173,6 +173,22 @@ class ResourceController extends AbstractController
         $formModel->handleRequest($request);
         if ($formModel->isSubmitted() && $formModel->isValid()) {
             $entityManager = $this->getDoctrine()->getManager();
+            $residualvalue = $formModel->get('residualvalue')->getData();
+            switch ($residualvalue) {
+                case 'recent':
+                    $residualvalue = 0.8;
+                    break;
+                case 'moyen':
+                    $residualvalue = 0.5;
+                    break;
+                case 'vieu':
+                    $residualvalue = 0.2;
+                    break;
+                default:
+            }
+            $lifeTime = 8;
+            $calcul =(($resource->getCost() - ($resource->getCost() * $residualvalue)) / $lifeTime) / $resource->getWorktime();
+            $resource = $resource->setValue($calcul);
             $entityManager->persist($resource);
             $entityManager->flush();
             return $this->redirectToRoute('resource_new_option', ['resource' => $resource->getid(), $request]);
