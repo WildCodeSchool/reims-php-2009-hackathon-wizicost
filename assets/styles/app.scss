@@ -7,23 +7,37 @@ body {
    cursor: default;
 }
 
+a {
+  margin-bottom: 10px;
+}
+
 /*
  * Top Bar
  */
  .top-bar, .bottom-bar {
-   background-color: #313c49;
-   height: 10vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #313c49;
+  height: 10vh;
+ }
+ .top-brand-name {
+  display: flex;
+  align-items: baseline;
  }
 
 /*
  * Container
  */
- .center-block {
+ .center-block-home, .center-block, .center-block-login, .center-block-new-simulation {
    display: flex;
    flex-direction: column;
    justify-content: center;
    align-items: center;
    height: 80vh;
+ }
+ .center-block-home {
+   background-color: #313c49;
  }
  .home-logo {
    // width: 20%;
@@ -45,13 +59,19 @@ body {
  .brand-name div {
     margin: 0;
  }
- .wizi {
+ .wizi, .wizi-white {
     font-size: 36px;
     font-weight: 600;
  }
- .cost {
+ .cost, .cost-white {
     font-size: 27px;
  }
+ .wizi-white {
+   color: #fff;
+ }
+ .cost-white {
+  color: #f5f5f5bb;
+}
  .block-button {
    display: flex;
    flex-direction: column;
@@ -95,7 +115,7 @@ body {
    }
  }
  .block-button div a.subscriptionText, .block-button div a.loggedPageLogoutButton {
-   color: #0000ff;
+   color: #5959a8;
    font-size: 16px;
    text-align: center;
    width: max-content;
@@ -162,6 +182,7 @@ body {
  form button:hover {
    background-color: #ff6a00;
    border: 1px solid #ff6a00;
+   cursor: pointer;
  }
  @media (max-width:767px) {
    form button {
@@ -186,7 +207,13 @@ body {
  */
  .register-form {
    display: flex;
+   justify-content: center;
    width: 20%;
+ }
+ @media (max-width:767px) {
+   .register-form {
+     width: 50%;
+   }
  }
  .register-form form {
    width: 100%;
@@ -204,3 +231,56 @@ body {
    border-radius: 10px;
    text-align: center;
  }
+
+ /*
+  * Login Page
+  */
+
+
+ /*
+  * Simulation tour
+  */
+  .center-block-new-simulation h1 {
+    height: 20%;
+  }
+  @media (max-width:767px) {
+    .center-block-new-simulation h1 {
+      height: 10%;
+    }
+  }
+  .center-block-new-simulation form {
+    width: 30%;
+  }
+  @media (max-width:767px) {
+    .center-block-new-simulation form {
+      min-width: 60%;
+    }
+  }
+  #resource_name {
+    width: 80%;
+  }
+  #resource_name div, #resource_category div, #resource_machine div, #resource_model div, #resource_option div {
+    display: flex;
+    flex-direction: column;
+  }
+  #resource_name div label, #resource_category div label, #resource_machine div label, #resource_model div label, #resource_option div label {
+    text-align: center;
+    margin-bottom: 5%;
+  }
+  #resource_name input {
+    align-self: center;
+    width: 50%;
+  }
+  @media (max-width:767px) {
+    #resource_name input {
+      width: 100%;
+    }
+  }
+  #resource_category {
+    width: 40%;
+  }
+  @media (max-width:767px) {
+    #resource_category {
+      width: 70%;
+    }
+  }

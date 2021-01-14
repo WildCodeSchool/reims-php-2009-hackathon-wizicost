@@ -6,18 +6,18 @@
     <section class="container">
         <div class="top-bar">
         </div>
-        <div class="center-block">
+        <div class="center-block-home">
             <img class="home-logo" src="{{ asset('/build/images/wizicost-logo.png') }}" alt="Logo WiziCost"/>
             <div class="brand-name">
-                <div class="wizi">Wizi</div>
-                <div class="cost">Cost</div>
+                <div class="wizi-white">Wizi</div>
+                <div class="cost-white">Cost</div>
             </div>
             <div class="block-button">
                 {# <a href="/app/registrer"><div>S'inscrire</div></a>
                 <a href="/app/login"><div>Se connecter</div></a> #}
                 {% if app.user %}
                     <div class="containerAuthButtons">
-                        <button class="submitConnexion" type="submit"><a href="/">Entrer</a></button>
+                        <button class="submitConnexion" type="submit"><a href="/resource/new">Entrer</a></button>
                         <a class="loggedPageLogoutButton" href="{{ path('app_logout') }}">D&eacute;connexion</a>
                     </div>
                 {% else %}
