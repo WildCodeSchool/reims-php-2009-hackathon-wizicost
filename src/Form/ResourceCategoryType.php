@@ -12,7 +12,7 @@ class ResourceCategoryType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('category', null, ['choice_label' => 'name'])
+            ->add('category', null, ['choice_label' => 'name', 'label' => 'Catégorie'])
         ;
     }
 
