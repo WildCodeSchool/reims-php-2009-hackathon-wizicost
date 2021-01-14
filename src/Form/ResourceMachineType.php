@@ -12,7 +12,7 @@ class ResourceMachineType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('machineType', null, ['choice_label' => 'type'])
+            ->add('machineType', null, ['choice_label' => 'type', 'label' => 'Type de machine'])
         ;
     }
 

@@ -7,9 +7,9 @@ body {
    cursor: default;
 }
 
-a {
-  margin-bottom: 10px;
-}
+// a {
+//   margin-bottom: 10px;
+// }
 
 /*
  * Top Bar
@@ -29,14 +29,14 @@ a {
 /*
  * Container
  */
- .center-block-home, .center-block, .center-block-login, .center-block-new-simulation {
+ .center-block-home, .center-block, .center-block-login, .center-block-register, .center-block-new-simulation {
    display: flex;
    flex-direction: column;
    justify-content: center;
    align-items: center;
    height: 80vh;
  }
- .center-block-home {
+ .center-block-home, .center-block-login, .center-block-register {
    background-color: #313c49;
  }
  .home-logo {
@@ -102,7 +102,7 @@ a {
    border-radius: 10px;
    font-size: 24px;
    // text-align: center;
-   padding: 1%;
+  //  padding: 1%;
  }
  .block-button div button:hover {
     background-color: #ff6a00;
@@ -123,6 +123,7 @@ a {
  }
  .block-button div a.subscriptionText:hover, .block-button div a.loggedPageLogoutButton:hover {
    text-decoration: underline;
+   color: #ff6a00;
  }
  @media (max-width:767px) {
    .block-button div a.subscriptionText, .block-button div a.loggedPageLogoutButton {
@@ -137,7 +138,10 @@ a {
    height: 100%;
    line-height: 50px;
    text-decoration: none;
-   color: #fff;
+   color: #5959a8;
+ }
+ .block-button a:hover {
+   color: #f5f5f5bb;
  }
  @media (max-width:767px) {
    .block-button div {
@@ -148,6 +152,21 @@ a {
  /*
   * Login Page
   */
+  .center-block-login form h1, .center-block-register h1 {
+    color: #f5f5f5bb;
+    font-size: 27px;
+  }
+  .center-block-login form label, .center-block-register form label {
+    color: #fff;
+  }
+  .center-block-register a {
+    color: #5959a8;
+    text-decoration: none;
+  }
+  .center-block-register a:hover {
+    color: #ff6a00;
+    text-decoration: underline;
+  }
   form {
    display: flex;
    flex-direction: column;
@@ -177,11 +196,12 @@ a {
    font-size: 24px;
    // text-align: center;
    padding: 1%;
-   color: #fff;
+   color: #5959a8;;
  }
  form button:hover {
    background-color: #ff6a00;
    border: 1px solid #ff6a00;
+   color: #f5f5f5bb;
    cursor: pointer;
  }
  @media (max-width:767px) {
@@ -191,7 +211,7 @@ a {
    }
  }
  form a {
-   color: #0000ff;
+   color: #5959a8;
    font-size: 16px;
    text-decoration: none;
    text-align: center;
@@ -200,6 +220,7 @@ a {
  }
  form a:hover {
    text-decoration: underline;
+   color: #ff6a00;
  }
 
 /*
@@ -253,8 +274,11 @@ a {
   }
   @media (max-width:767px) {
     .center-block-new-simulation form {
-      min-width: 60%;
+      min-width: 70%;
     }
+  }
+  .center-block-new-simulation a {
+    margin-bottom: 10px;
   }
   #resource_name {
     width: 80%;
@@ -276,11 +300,15 @@ a {
       width: 100%;
     }
   }
-  #resource_category {
+  #resource_category, #resource_machine, #resource_model, #resource_option {
     width: 40%;
   }
   @media (max-width:767px) {
-    #resource_category {
-      width: 70%;
+    #resource_category, #resource_machine, #resource_model, #resource_option {
+      width: 80%;
     }
+  }
+  #resource_category select, #resource_machine select, #resource_model select, #resource_option select {
+    height: 36px;
+    font-size: 13px;
   }

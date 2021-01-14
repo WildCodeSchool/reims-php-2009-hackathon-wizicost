@@ -12,7 +12,7 @@ class ResourceModelType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('model', null, ['choice_label' => 'nameModel'])
+            ->add('model', null, ['choice_label' => 'nameModel', 'label' => 'Modèle'])
         ;
     }
 
