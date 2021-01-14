@@ -125,7 +125,7 @@ class ResourceController extends AbstractController
      */
     public function newBrandForResource(Resource $resource, Category $category, Request $request, MachineTypeRepository $machineTypeRepository, BrandRepository $brandRepository): Response
     {
-        $machineType = $machineTypeRepository->findOneBy(['resource' => $resource]);
+        // $machineType = $machineTypeRepository->findOneBy(['resource' => $resource]);
         $brandObjects = $brandRepository->findAll();
         $brands = [];
 
@@ -138,7 +138,7 @@ class ResourceController extends AbstractController
         $formbrand->handleRequest($request);
         if ($formbrand->isSubmitted() && $formbrand->isValid()) {
             $formResourcebrand = $formbrand->get('brand')->getData();
-            $resourceBrand = $brandRepository->findOneBy($formResourcebrand);
+            $brandId = $formbrand->get('brand')->getData()->getId();
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($resource);
             $entityManager->flush();
@@ -147,7 +147,7 @@ class ResourceController extends AbstractController
                 'resource' => $resource->getid(),
                 'category' => $category->getId(),
                 'machineType' => $machineTypeId,
-                'brand' => $resourceBrand->getId(),
+                'brand' => $brandId,
                 $request]);
         }
         return $this->render('resource/new.html.twig', [
@@ -158,16 +158,15 @@ class ResourceController extends AbstractController
     }
 
      /**
-     * @Route("/{resource}/{category}/{machineType}/newModel", name="resource_new_model", methods={"GET","POST"})
+     * @Route("/{resource}/{category}/{machineType}/{brand}/newModel", name="resource_new_model", methods={"GET","POST"})
      */
-    public function newModelForResource(Resource $resource, Category $category, MachineType $machineType, BrandRepository $brandRepository, ModelRepository $modelRepository, Request $request): Response
+    public function newModelForResource(Resource $resource, Category $category, MachineType $machineType,Brand $brand, BrandRepository $brandRepository, ModelRepository $modelRepository, Request $request): Response
     {
-        $brand = $brandRepository->findOneBy(['resource' => $resource]);
-        $modelObjects = $modelRepository->findBy(['brand' => $brand, 'machineType' => $machineType]);
+        $modelObjects = $modelRepository->findBy(['brand' => $brand]);
         $models = [];
         $formModel = $this->createForm(ResourceModelType::class, $resource);
         foreach ($modelObjects as $modelObject) {
-            $model = $modelObject->getBrand();
+            $model = $modelObject->getModel();
             $models[$model] = $modelObject;
         }
         $formModel->add('model', ChoiceType::class, ['choices' => $models]);
