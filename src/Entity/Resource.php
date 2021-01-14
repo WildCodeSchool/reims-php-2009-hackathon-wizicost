@@ -57,6 +57,21 @@ class Resource
      */
     private $brand;
 
+    /**
+     * @ORM\Column(type="string", nullable=true)
+     */
+    private $residualvalue;
+
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $worktime;
+
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $value;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -154,6 +169,42 @@ class Resource
     public function setBrand(?Brand $brand): self
     {
         $this->brand = $brand;
+
+        return $this;
+    }
+
+    public function getResidualvalue(): ?string
+    {
+        return $this->residualvalue;
+    }
+
+    public function setResidualvalue(?string $residualvalue): self
+    {
+        $this->residualvalue = $residualvalue;
+
+        return $this;
+    }
+
+    public function getWorktime(): ?int
+    {
+        return $this->worktime;
+    }
+
+    public function setWorktime(?int $worktime): self
+    {
+        $this->worktime = $worktime;
+
+        return $this;
+    }
+
+    public function getValue(): ?float
+    {
+        return $this->value;
+    }
+
+    public function setValue(?float $value): self
+    {
+        $this->value = $value;
 
         return $this;
     }
