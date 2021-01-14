@@ -10,6 +10,11 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Security;
+use App\Form\ResourceNameType;
+use App\Form\ResourceCategoryType;
+use App\Form\ResourceMachineType;
+use App\Form\ResourceModelType;
+use App\Form\ResourceOptionType;
 
 /**
  * @Route("/resource")
@@ -44,21 +49,95 @@ class ResourceController extends AbstractController
      */
     public function new(Request $request): Response
     {
+        //Ressource -> Category -> MachineType -> Model -> Option
         $resource = new Resource();
-        $form = $this->createForm(ResourceType::class, $resource);
+        $form = $this->createForm(ResourceNameType::class, $resource);
         $form->handleRequest($request);
-
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($resource);
             $entityManager->flush();
-
-            return $this->redirectToRoute('resource_index');
+            return $this->redirectToRoute('resource_new_category', ['id' => $resource->getid(), $request]);
         }
-
         return $this->render('resource/new.html.twig', [
             'resource' => $resource,
             'form' => $form->createView(),
+        ]);
+    }
+
+     /**
+     * @Route("/{id}/newCategory", name="resource_new_category", methods={"GET","POST"})
+     */
+    public function newCategoryForResource(Resource $resource, Request $request): Response
+    {
+        $formCategory = $this->createForm(ResourceCategoryType::class, $resource);
+        $formCategory->handleRequest($request);
+        if ($formCategory->isSubmitted() && $formCategory->isValid()) {
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($resource);
+            $entityManager->flush();
+            return $this->redirectToRoute('resource_new_machine_type', ['id' => $resource->getid(), $request]);
+        }
+        return $this->render('resource/new.html.twig', [
+            'resource' => $resource,
+            'form' => $formCategory->createView(),
+        ]);
+    }
+
+    /**
+     * @Route("/{id}/newMachineType", name="resource_new_machine_type", methods={"GET","POST"})
+     */
+    public function newMachineTypeForResource(Resource $resource, Request $request): Response
+    {
+        $formMachineType = $this->createForm(ResourceMachineType::class, $resource);
+        $formMachineType->handleRequest($request);
+        if ($formMachineType->isSubmitted() && $formMachineType->isValid()) {
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($resource);
+            $entityManager->flush();
+            return $this->redirectToRoute('resource_new_model', ['id' => $resource->getid(), $request]);
+        }
+        return $this->render('resource/new.html.twig', [
+            'resource' => $resource,
+            'form' => $formMachineType->createView(),
+        ]);
+    }
+
+     /**
+     * @Route("/{id}/newModel", name="resource_new_model", methods={"GET","POST"})
+     */
+    public function newModelForResource(Resource $resource, Request $request): Response
+    {
+        $formModel = $this->createForm(ResourceModelType::class, $resource);
+        $formModel->handleRequest($request);
+        if ($formModel->isSubmitted() && $formModel->isValid()) {
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($resource);
+            $entityManager->flush();
+            return $this->redirectToRoute('resource_new_option', ['id' => $resource->getid(), $request]);
+        }
+        return $this->render('resource/new.html.twig', [
+            'resource' => $resource,
+            'form' => $formModel->createView(),
+        ]);
+    }
+
+    /**
+     * @Route("/{id}/newOption", name="resource_new_option", methods={"GET","POST"})
+     */
+    public function newOptionForResource(Resource $resource, Request $request): Response
+    {
+        $formOption = $this->createForm(ResourceOptionType::class, $resource);
+        $formOption->handleRequest($request);
+        if ($formOption->isSubmitted() && $formOption->isValid()) {
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($resource);
+            $entityManager->flush();
+            return $this->redirectToRoute('resource_show', ['id' => $resource->getid()]);
+        }
+        return $this->render('resource/new.html.twig', [
+            'resource' => $resource,
+            'form' => $formOption->createView(),
         ]);
     }
 
