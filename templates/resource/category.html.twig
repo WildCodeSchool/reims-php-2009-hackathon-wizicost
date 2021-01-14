@@ -1,10 +1,26 @@
 {% extends "base.html.twig" %}
-{% block title %}Catégorie{{ parent() }}{% endblock %}
+{% block title %}Catégories{{ parent() }}{% endblock %}
 {% block body %}
-{% for category in categories %}
-<section class = "category">
-    <a href = "{{ path('resource_new_machine_type', {'resource' : resource.id, 'category' : category.id}) }}"><img src = "{{ asset('/build/images/' ~ category.id ~ '.png') }}" style = "width: 200px; height:auto;"></a>
-    <h2>{{ category.name}}</h2>
-</section>
-{% endfor %}
+    <section class="container">
+        <div class="top-bar">
+            <div class="top-brand-name">
+                <div class="wizi-white">Wizi</div>
+                <div class="cost-white">Cost</div>
+            </div>
+        </div>
+        <div class="center-block-categories">
+            <div class="categories-container">
+                {% for category in categories %}
+                    <a href = "{{ path('resource_new_machine_type', {'resource' : resource.id, 'category' : category.id}) }}">
+                        <div class = "category">
+                            <img src = "{{ asset('/build/images/' ~ category.id ~ '.png') }}">
+                        </div>
+                        <span>{{ category.name}}</span>
+                    </a>
+                {% endfor %}
+            </div>
+        </div>
+        <div class="bottom-bar">
+        </div>
+    <section>
 {% endblock %}
