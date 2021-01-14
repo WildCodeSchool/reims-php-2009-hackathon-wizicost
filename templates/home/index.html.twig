@@ -19,6 +19,7 @@
                     <div class="containerAuthButtons">
 
                         <button class="submitConnexion" type="submit"><a href="/resource/new">Entrer</a></button>
+                        <p>Bienvenue {{ app.user.email }}</p>
 
                         <a class="loggedPageLogoutButton" href="{{ path('app_logout') }}">D&eacute;connexion</a>
                     </div>
