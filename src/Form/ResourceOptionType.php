@@ -12,7 +12,7 @@ class ResourceOptionType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('optional', null, ['choice_label' => 'name'])
+            ->add('optional', null, ['choice_label' => 'name', 'label' => 'Option'])
         ;
     }
 
