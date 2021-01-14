@@ -56,6 +56,7 @@ class ResourceController extends AbstractController
         $form = $this->createForm(ResourceNameType::class, $resource);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
+            $resource = $resource->setUser($this->getUser());
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($resource);
             $entityManager->flush();
