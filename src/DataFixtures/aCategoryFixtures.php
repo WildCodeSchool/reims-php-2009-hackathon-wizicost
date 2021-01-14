@@ -6,7 +6,7 @@ use App\Entity\Category;
 use Doctrine\Persistence\ObjectManager;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 
-class CategoryFixtures extends Fixture
+class AcategoryFixtures extends Fixture
 {
     private const CATEGORIES = [
         'Distribution Aliments',
