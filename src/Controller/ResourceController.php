@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Resource;
 use App\Entity\Category;
 use App\Entity\MachineType;
+use App\Entity\Brand;
 use App\Form\ModelType;
 use App\Form\ResourceType;
 use App\Repository\ResourceRepository;
@@ -23,6 +24,7 @@ use App\Repository\CategoryRepository;
 use App\Repository\MachineTypeRepository;
 use App\Repository\ModelRepository;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use App\Form\ResourceBrandType;
 
 /**
  * @Route("/resource")
@@ -84,7 +86,7 @@ class ResourceController extends AbstractController
     }
 
     /**
-     * @Route("/{resource}/{category}/newMachineType", name="resource_new_machine_type", methods={"GET","POST"})
+     * @Route("/{resource}/{category}/newMachineType", name="resource_new_machineType", methods={"GET","POST"})
      */
     public function newMachineTypeForResource(Resource $resource, Category $category, Request $request, MachineTypeRepository $machineTypeRepository): Response
     {
@@ -95,19 +97,20 @@ class ResourceController extends AbstractController
         $formMachineType = $this->createForm(ResourceMachineType::class, $resource);
         foreach ($machineTypeObjects as $machineTypeObject) {
             $machineType = $machineTypeObject->getType();
-            $machineTypes[$machineType] = $machineTypeObject->getId();
+            $machineTypes[$machineType] = $machineTypeObject;
         }
         $formMachineType->add('machineType', ChoiceType::class, ['choices' => $machineTypes]);
         $formMachineType->handleRequest($request);
         if ($formMachineType->isSubmitted() && $formMachineType->isValid()) {
-            $ResourceMachineType = $formMachineType->get('machineType')->getData();
+            $MachineTypeId = $formMachineType->get('machineType')->getData();
+            $resourceMachineType = $machineTypeRepository->findOneBy(['id' => $MachineTypeId]);
+            $resource->setMachineType($resourceMachineType);
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($resource);
             $entityManager->flush();
-            return $this->redirectToRoute('resource_new_model', [
+            return $this->redirectToRoute('resource_new_brand', [
                 'resource' => $resource->getid(),
                 'category' => $category->getId(),
-                'machineType' => $ResourceMachineType,
                 $request]);
         }
         return $this->render('resource/new.html.twig', [
@@ -118,29 +121,33 @@ class ResourceController extends AbstractController
     }
 
      /**
-     * @Route("/{resource}/{category}/{machineType}/newBrand", name="resource_new_brand", methods={"GET","POST"})
+     * @Route("/{resource}/{category}/newBrand", name="resource_new_brand", methods={"GET","POST"})
      */
-    public function newBrandForResource(Resource $resource, Category $category, MachineType $machineType, Request $request, BrandRepository $brandRepository): Response
+    public function newBrandForResource(Resource $resource, Category $category, Request $request, MachineTypeRepository $machineTypeRepository, BrandRepository $brandRepository): Response
     {
-        $brandObjects = $brandRepository->findBy(['Category' => $category]);
+        $machineType = $machineTypeRepository->findOneBy(['resource' => $resource]);
+        $brandObjects = $brandRepository->findAll();
         $brands = [];
 
-        $formbrand = $this->createForm(Resourcebrand::class, $resource);
+        $formbrand = $this->createForm(ResourceBrandType::class, $resource);
         foreach ($brandObjects as $brandObject) {
             $brand = $brandObject->getBrand();
-            $brands[$brand] = $brandObject->getId();
+            $brands[$brand] = $brandObject;
         }
         $formbrand->add('brand', ChoiceType::class, ['choices' => $brands]);
         $formbrand->handleRequest($request);
         if ($formbrand->isSubmitted() && $formbrand->isValid()) {
-            $Resourcebrand = $formbrand->get('brand')->getData();
+            $formResourcebrand = $formbrand->get('brand')->getData();
+            $resourceBrand = $brandRepository->findOneBy($formResourcebrand);
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($resource);
             $entityManager->flush();
+            $machineTypeId = $resource->getMachineType()->getId();
             return $this->redirectToRoute('resource_new_model', [
                 'resource' => $resource->getid(),
                 'category' => $category->getId(),
-                'brand' => $Resourcebrand,
+                'machineType' => $machineTypeId,
+                'brand' => $resourceBrand->getId(),
                 $request]);
         }
         return $this->render('resource/new.html.twig', [
@@ -153,14 +160,15 @@ class ResourceController extends AbstractController
      /**
      * @Route("/{resource}/{category}/{machineType}/newModel", name="resource_new_model", methods={"GET","POST"})
      */
-    public function newModelForResource(Resource $resource, Category $category, MachineType $machineType, ModelRepository $modelRepository, Request $request): Response
+    public function newModelForResource(Resource $resource, Category $category, MachineType $machineType, BrandRepository $brandRepository, ModelRepository $modelRepository, Request $request): Response
     {
-        $modelObjects = $modelRepository->findBy(['machineType' => $machineType]);
+        $brand = $brandRepository->findOneBy(['resource' => $resource]);
+        $modelObjects = $modelRepository->findBy(['brand' => $brand, 'machineType' => $machineType]);
         $models = [];
         $formModel = $this->createForm(ResourceModelType::class, $resource);
         foreach ($modelObjects as $modelObject) {
             $model = $modelObject->getBrand();
-            $models[$model] = $modelObject->getId();
+            $models[$model] = $modelObject;
         }
         $formModel->add('model', ChoiceType::class, ['choices' => $models]);
         $formModel->handleRequest($request);
@@ -168,7 +176,7 @@ class ResourceController extends AbstractController
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($resource);
             $entityManager->flush();
-            return $this->redirectToRoute('resource_new_option', ['id' => $resource->getid(), $request]);
+            return $this->redirectToRoute('resource_new_option', ['resource' => $resource->getid(), $request]);
         }
         return $this->render('resource/new.html.twig', [
             'resource' => $resource,
@@ -177,7 +185,7 @@ class ResourceController extends AbstractController
     }
 
     /**
-     * @Route("/{id}/newOption", name="resource_new_option", methods={"GET","POST"})
+     * @Route("/{resource}/newOption", name="resource_new_option", methods={"GET","POST"})
      */
     public function newOptionForResource(Resource $resource, Request $request): Response
     {

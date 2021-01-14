@@ -40,10 +40,16 @@ class MachineType
      */
     private $brands;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Model::class, mappedBy="machineType")
+     */
+    private $models;
+
     public function __construct()
     {
         $this->resources = new ArrayCollection();
         $this->brands = new ArrayCollection();
+        $this->models = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -130,5 +136,40 @@ class MachineType
         }
 
         return $this;
+    }
+
+    /**
+     * @return Collection|Model[]
+     */
+    public function getModels(): Collection
+    {
+        return $this->models;
+    }
+
+    public function addModel(Model $model): self
+    {
+        if (!$this->models->contains($model)) {
+            $this->models[] = $model;
+            $model->setMachineType($this);
+        }
+
+        return $this;
+    }
+
+    public function removeModel(Model $model): self
+    {
+        if ($this->models->removeElement($model)) {
+            // set the owning side to null (unless already changed)
+            if ($model->getMachineType() === $this) {
+                $model->setMachineType(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function __toString()
+    {
+        return $this->getType();
     }
 }
