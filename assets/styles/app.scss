@@ -207,6 +207,10 @@ body {
    color: #f5f5f5bb;
    cursor: pointer;
  }
+
+ .block-button p {
+   color: white;
+ }
  @media (max-width:767px) {
    form button {
       width: 90%;
@@ -224,6 +228,11 @@ body {
  form a:hover {
    text-decoration: underline;
    color: #ff6a00;
+ }
+ @media (max-width:550px) {
+  .block-button p {
+    font-size: 12px;
+  }
  }
 
 /*
