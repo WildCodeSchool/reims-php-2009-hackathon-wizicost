@@ -3,6 +3,8 @@
 namespace App\Controller;
 
 use App\Entity\Resource;
+use App\Entity\Category;
+use App\Entity\MachineType;
 use App\Form\ResourceType;
 use App\Repository\ResourceRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -15,6 +17,9 @@ use App\Form\ResourceCategoryType;
 use App\Form\ResourceMachineType;
 use App\Form\ResourceModelType;
 use App\Form\ResourceOptionType;
+use App\Repository\CategoryRepository;
+use App\Repository\MachineTypeRepository;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 
 /**
  * @Route("/resource")
@@ -54,6 +59,7 @@ class ResourceController extends AbstractController
         $form = $this->createForm(ResourceNameType::class, $resource);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
+            $resource = $resource->setUser($this->getUser());
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($resource);
             $entityManager->flush();
@@ -68,28 +74,27 @@ class ResourceController extends AbstractController
      /**
      * @Route("/{id}/newCategory", name="resource_new_category", methods={"GET","POST"})
      */
-    public function newCategoryForResource(Resource $resource, Request $request): Response
+    public function newCategoryForResource(CategoryRepository $categoryRepository, Resource $resource, Request $request): Response
     {
-        $formCategory = $this->createForm(ResourceCategoryType::class, $resource);
-        $formCategory->handleRequest($request);
-        if ($formCategory->isSubmitted() && $formCategory->isValid()) {
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->persist($resource);
-            $entityManager->flush();
-            return $this->redirectToRoute('resource_new_machine_type', ['id' => $resource->getid(), $request]);
-        }
-        return $this->render('resource/new.html.twig', [
-            'resource' => $resource,
-            'form' => $formCategory->createView(),
-        ]);
+        $categories = $categoryRepository->findAll();
+        return $this->render('resource/category.html.twig', ['categories' => $categories, 'resource' => $resource]);
     }
 
     /**
-     * @Route("/{id}/newMachineType", name="resource_new_machine_type", methods={"GET","POST"})
+     * @Route("/{resource}/{category}/newMachineType", name="resource_new_machine_type", methods={"GET","POST"})
      */
-    public function newMachineTypeForResource(Resource $resource, Request $request): Response
+    public function newMachineTypeForResource(Resource $resource, Category $category, Request $request, MachineTypeRepository $machineTypeRepository): Response
     {
+        $resource->setCategory($category);
+        $machineTypeObjects = $machineTypeRepository->findBy(['Category' => $category]);
+        $machineTypes = [];
+
         $formMachineType = $this->createForm(ResourceMachineType::class, $resource);
+        foreach ($machineTypeObjects as $machineTypeObject) {
+            $machineType = $machineTypeObject->getType();
+            $machineTypes[$machineType] = $machineTypeObject->getId();
+        }
+        $formMachineType->add('machineType', ChoiceType::class, ['choices' => $machineTypes]);
         $formMachineType->handleRequest($request);
         if ($formMachineType->isSubmitted() && $formMachineType->isValid()) {
             $entityManager = $this->getDoctrine()->getManager();
@@ -100,6 +105,7 @@ class ResourceController extends AbstractController
         return $this->render('resource/new.html.twig', [
             'resource' => $resource,
             'form' => $formMachineType->createView(),
+            'machineTypes' => $machineTypes,
         ]);
     }
 

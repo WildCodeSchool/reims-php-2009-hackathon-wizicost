@@ -17,7 +17,9 @@
                 <a href="/app/login"><div>Se connecter</div></a> #}
                 {% if app.user %}
                     <div class="containerAuthButtons">
+
                         <button class="submitConnexion" type="submit"><a href="/resource/new">Entrer</a></button>
+
                         <a class="loggedPageLogoutButton" href="{{ path('app_logout') }}">D&eacute;connexion</a>
                     </div>
                 {% else %}

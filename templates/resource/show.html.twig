@@ -17,19 +17,25 @@
             </tr>
             <tr>
                 <th>Categorie</th>
-                <td>{{ resource.category }}</td>
+                <td>{{ resource.category.name }}</td>
             </tr>
             <tr>
                 <th>Type de machine</th>
-                <td>{{ resource.machineType }}</td>
+                <td>{{ resource.machineType.type }}</td>
+            </tr>
+            <tr>
+                <th>Marque</th>
+                <td>{{ resource.model.NameBrand }}</td>
             </tr>
             <tr>
                 <th>Modèle</th>
-                <td>{{ resource.model }}</td>
+                <td>{{ resource.model.NameModel }}</td>
             </tr>
             <tr>
                 <th>option</th>
-                <td>{{ resource.name }}</td>
+                {% if resource.optional %}                
+                <td>{{ resource.optional.name }}</td>
+                {% endif %}
             </tr>
         </tbody>
     </table>
