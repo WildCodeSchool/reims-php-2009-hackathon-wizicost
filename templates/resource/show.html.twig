@@ -17,19 +17,23 @@
             </tr>
             <tr>
                 <th>Categorie</th>
-                <td>{{ resource.category }}</td>
+                <td>{{ resource.category.name }}</td>
             </tr>
             <tr>
                 <th>Type de machine</th>
-                <td>{{ resource.machineType }}</td>
+                <td>{{ resource.machineType.type }}</td>
+            </tr>
+            <tr>
+                <th>Marque</th>
+                <td>{{ resource.model.nameBrand }}</td>
             </tr>
             <tr>
                 <th>Modèle</th>
-                <td>{{ resource.model }}</td>
+                <td>{{ resource.model.nameModel }}</td>
             </tr>
             <tr>
                 <th>option</th>
-                <td>{{ resource.name }}</td>
+                <td>{{ resource.optional.name }}</td>
             </tr>
         </tbody>
     </table>
