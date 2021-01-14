@@ -15,7 +15,9 @@ class ResourceModelType extends AbstractType
     {
         $builder
             ->add('model', null, ['choice_label' => 'nameModel'])
-            ->add('cost', NumberType::class)
+            ->add('cost', NumberType::class, [
+                'invalid_message' => 'Valeur invalide'
+            ])
             ->add('residualvalue', ChoiceType::class, [
                 'choices'  => [
                     'Recent' => 'recent',
