@@ -25,15 +25,15 @@
             </tr>
             <tr>
                 <th>Marque</th>
-                <td>{{ resource.model.NameBrand }}</td>
+                <td>{{ resource.brand.brand }}</td>
             </tr>
             <tr>
                 <th>Modèle</th>
-                <td>{{ resource.model.NameModel }}</td>
+                <td>{{ resource.model.model }}</td>
             </tr>
             <tr>
                 <th>option</th>
-                {% if resource.optional %}                
+                {% if resource.optional %}
                 <td>{{ resource.optional.name }}</td>
                 {% endif %}
             </tr>
