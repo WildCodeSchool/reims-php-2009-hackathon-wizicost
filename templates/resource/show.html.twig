@@ -25,20 +25,26 @@
                     </tr>
                     <tr>
                         <th>Type de machine</th>
-                        <td>{{ resource.machineType.type }}</td>
+                        {% if resource.machineType %}
+                            <td>{{ resource.machineType.type }}</td>
+                        {% endif %}
                     </tr>
                     <tr>
                         <th>Marque</th>
-                        <td>{{ resource.brand.brand }}</td>
+                        {% if resource.brand %}
+                            <td>{{ resource.brand.brand }}</td>
+                        {% endif %}
                     </tr>
                     <tr>
                         <th>Modèle</th>
-                        <td>{{ resource.model.model }}</td>
+                        {% if resource.model %}
+                            <td>{{ resource.model.model }}</td>
+                        {% endif %}
                     </tr>
                     <tr>
                         <th>Option</th>
                         {% if resource.optional %}
-                        <td>{{ resource.optional.name }}</td>
+                            <td>{{ resource.optional.name }}</td>
                         {% endif %}
                     </tr>
                     <tr>
