@@ -49,7 +49,7 @@ body {
    height: 30%;
    margin-bottom: 2%;
  }
- 
+
  @media (max-width:767px) {
    .home-logo {
       height: 25%;
@@ -514,6 +514,11 @@ body {
     width: 36%;
     margin: 0% 5%;
     text-decoration: none;
+  }
+  @media (max-width:767px) {
+    .bottom-links a {
+      width: 77%;
+    }
   }
    #resource_model ul {
      align-items: center;
