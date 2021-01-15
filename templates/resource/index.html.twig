@@ -1,35 +1,48 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Resource index{% endblock %}
+{% block title %}Liste des ressources{{ parent() }}{% endblock %}
 
 {% block body %}
-    <h1>Resource index</h1>
+    <section class="container">
+        <div class="top-bar">
+            <div class="top-brand-name">
+                <div class="wizi-white">Wizi</div>
+                <div class="cost-white">Cost</div>
+            </div>
+        </div>
+        <div class="center-block-ressource-list">
+            <h1>Liste des ressources</h1>
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Name</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for resource in resources %}
-            <tr>
-                <td>{{ resource.id }}</td>
-                <td>{{ resource.name }}</td>
-                <td>
-                    <a href="{{ path('resource_show', {'id': resource.id}) }}">show</a>
-                    <a href="{{ path('resource_edit', {'id': resource.id}) }}">edit</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="3">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Libellé</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% for resource in resources %}
+                    <tr>
+                        <td>{{ resource.name }}</td>
+                        <td>
+                            <a href="{{ path('resource_show', {'id': resource.id}) }}">Voir</a>
+                            <a href="{{ path('resource_edit', {'id': resource.id}) }}">Modifier</a>
+                        </td>
+                    </tr>
+                {% else %}
+                    <tr>
+                        <td colspan="3">no records found</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
 
-    <a href="{{ path('resource_new') }}">Create new</a>
+            <div class="bottom-links">
+                <a href="{{ path('resource_new') }}"><button class="btn">Nouvelle ressource</button></a>
+                <a href="/"><button class="btn">Retour à l'accueil</button></a>
+            </div>
+        </div>
+        <div class="bottom-bar">
+        </div>
+    <section>
 {% endblock %}

@@ -11,7 +11,7 @@
         <div class="center-block-categories">
             <div class="categories-container">
                 {% for category in categories %}
-                    <a href = "{{ path('resource_new_machine_type', {'resource' : resource.id, 'category' : category.id}) }}">
+                    <a href = "{{ path('resource_new_machineType', {'resource' : resource.id, 'category' : category.id}) }}">
                         <div class = "category">
                             <img src = "{{ asset('/build/images/' ~ category.id ~ '.png') }}">
                         </div>
