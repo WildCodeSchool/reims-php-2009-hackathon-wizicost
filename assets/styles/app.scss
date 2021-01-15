@@ -32,7 +32,7 @@ body {
 /*
  * Container
  */
- .center-block-home, .center-block, .center-block-login, .center-block-register, .center-block-categories, .center-block-new-simulation {
+ .center-block-home, .center-block, .center-block-login, .center-block-register, .center-block-categories, .center-block-new-simulation, .center-block-ressource, .center-block-ressource-list {
    display: flex;
    flex-direction: column;
    justify-content: center;
@@ -162,11 +162,11 @@ body {
   .center-block-login form label, .center-block-register form label {
     color: #fff;
   }
-  .center-block-register a {
+  .center-block-register a, .resource-list {
     color: #5959a8;
     text-decoration: none;
   }
-  .center-block-register a:hover {
+  .center-block-register a:hover, .resource-list:hover {
     color: #ff6a00;
     text-decoration: underline;
   }
@@ -289,17 +289,23 @@ body {
       min-width: 70%;
     }
   }
-  .center-block-new-simulation a {
+  .center-block-new-simulation a, .center-block-ressource-list td a {
+    color: #5959a8;
     margin-bottom: 10px;
+    text-decoration: none;
+  }
+  .center-block-new-simulation a:hover, .center-block-ressource-list td a:hover {
+    color: #ff6a00;
+    text-decoration: underline;
   }
   #resource_name {
     width: 80%;
   }
-  #resource_name div, #resource_category div, #resource_machine div, #resource_model div, #resource_option div {
+  #resource_name div, #resource_category div, #resource_machine div, #resource_model div, #resource_option div, #resource_brand div {
     display: flex;
     flex-direction: column;
   }
-  #resource_name div label, #resource_category div label, #resource_machine div label, #resource_model div label, #resource_option div label {
+  #resource_name div label, #resource_category div label, #resource_machine div label, #resource_model div label, #resource_option div label, #resource_brand div label {
     text-align: center;
     margin-bottom: 5%;
   }
@@ -312,17 +318,25 @@ body {
       width: 100%;
     }
   }
-  #resource_category, #resource_machine, #resource_model, #resource_option {
+  #resource_category, #resource_machine, #resource_model, #resource_option, #resource_brand {
     width: 40%;
   }
   @media (max-width:767px) {
-    #resource_category, #resource_machine, #resource_model, #resource_option {
+    #resource_category, #resource_machine, #resource_model, #resource_option, #resource_brand {
       width: 80%;
     }
   }
-  #resource_category select, #resource_machine select, #resource_model select, #resource_option select {
+  #resource_category select, #resource_machine select, #resource_model select, #resource_option select, #resource_brand select {
     height: 36px;
     font-size: 13px;
+  }
+  #resource_model ul {
+    list-style: none;
+    padding: 0;
+    color: #FF0000;
+  }
+  #resource_model_cost {
+    width: 98%;
   }
 
   /*
@@ -388,6 +402,136 @@ body {
      }
    }
 
+<<<<<<< HEAD
+ /*
+  * Ressource Page
+  */
+  .center-block-ressource table {
+    width: 36%;
+    margin-bottom: 20px;
+  }
+  @media (max-width:767px) {
+    .center-block-ressource table {
+      width: 90%;
+    }
+  }
+  table {
+    border: 1px solid #000;
+    border-collapse: collapse;
+    box-shadow: 0px 5px 19px -8px #aeaeae;
+    -webkit-box-shadow: 0px 5px 19px -8px #aeaeae;
+    -moz-box-shadow: 0px 5px 19px -8px #aeaeae;
+  }
+
+  td, th {
+    border: 1px solid #00000024;
+    border-collapse: collapse;
+    width: 50%;
+  }
+  td, th {
+    padding: 1%;
+  }
+  .center-block-ressource th, .center-block-ressource td {
+    text-align: left;
+    padding-left: 5%;
+  }
+  .center-block-ressource form {
+    width: 30%;
+  }
+  .center-block-ressource a button, .bottom-links a button {
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   background-color: #fbdf8f;
+   margin: 5% 0%;
+   width: 100%;
+   height: 50px;
+   border: 1px solid #fbdf8f;
+   border-radius: 10px;
+   font-size: 24px;
+   // text-align: center;
+   padding: 1%;
+   color: #5959a8;;
+ }
+ @media (max-width:767px) {
+   .center-block-ressource a button {
+     margin: 0%;
+   }
+ }
+ .edit-ressource-btn {
+   width: 18%;
+   display: flex;
+   justify-content: center;
+   text-decoration: none
+ }
+ .edit-ressource-btn button:hover, .bottom-links a button:hover {
+   background-color: #ff6a00;
+   border: 1px solid #ff6a00;
+   color: #f5f5f5bb;
+   cursor: pointer;
+ }
+ @media (max-width:767px) {
+   .edit-ressource-btn {
+     width: 50%;
+     margin: 2% 0%;
+   }
+   .center-block-ressource form {
+    width: 55%;
+   }
+ }
+ form button:hover {
+   background-color: #ff6a00;
+   border: 1px solid #ff6a00;
+   color: #f5f5f5bb;
+   cursor: pointer;
+ }
+ @media (max-width:767px) {
+   form button {
+      width: 90%;
+      margin-bottom: 10%;
+   }
+ }
+
+ /*
+  * Resources List Page
+  */
+  .center-block-ressource-list {
+    justify-content: space-around;
+  }
+  .center-block-ressource-list table {
+    width: 60%;
+  }
+  @media (max-width:767px) {
+    .center-block-ressource-list table {
+      width: 90%;
+    }
+  }
+  .center-block-ressource-list td a {
+    margin: 0% 2%;
+  }
+  .bottom-links {
+    display:flex;
+    justify-content: space-around;
+    width: 50%;
+  }
+  @media (max-width:767px) {
+    .bottom-links {
+      flex-direction: column;
+      align-items: center;
+      width: 80%;
+    }
+  }
+  .bottom-links a {
+    width: 36%;
+    margin: 0% 5%;
+    text-decoration: none;
+  }
+  @media (max-width:767px) {
+    .bottom-links a {
+      width: 90%;
+    }
+  }
+=======
    #resource_model ul {
      align-items: center;
      padding: 0;
@@ -396,3 +540,4 @@ body {
      color: #ff0000;
    }
 
+>>>>>>> 149207c712153815bdc89c5bcdba10d547ca9912

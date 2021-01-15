@@ -99,7 +99,7 @@ class ResourceController extends AbstractController
             $machineType = $machineTypeObject->getType();
             $machineTypes[$machineType] = $machineTypeObject;
         }
-        $formMachineType->add('machineType', ChoiceType::class, ['choices' => $machineTypes]);
+        $formMachineType->add('machineType', ChoiceType::class, ['choices' => $machineTypes, 'label' => 'Type de machine']);
         $formMachineType->handleRequest($request);
         if ($formMachineType->isSubmitted() && $formMachineType->isValid()) {
             $MachineTypeId = $formMachineType->get('machineType')->getData();
@@ -134,7 +134,7 @@ class ResourceController extends AbstractController
             $brand = $brandObject->getBrand();
             $brands[$brand] = $brandObject;
         }
-        $formbrand->add('brand', ChoiceType::class, ['choices' => $brands]);
+        $formbrand->add('brand', ChoiceType::class, ['choices' => $brands, 'label' => 'Marque']);
         $formbrand->handleRequest($request);
         if ($formbrand->isSubmitted() && $formbrand->isValid()) {
             $formResourcebrand = $formbrand->get('brand')->getData();
@@ -160,7 +160,7 @@ class ResourceController extends AbstractController
      /**
      * @Route("/{resource}/{category}/{machineType}/{brand}/newModel", name="resource_new_model", methods={"GET","POST"})
      */
-    public function newModelForResource(Resource $resource, Category $category, MachineType $machineType,Brand $brand, BrandRepository $brandRepository, ModelRepository $modelRepository, Request $request): Response
+    public function newModelForResource(Resource $resource, Category $category, MachineType $machineType, Brand $brand, BrandRepository $brandRepository, ModelRepository $modelRepository, Request $request): Response
     {
         $modelObjects = $modelRepository->findBy(['brand' => $brand]);
         $models = [];
@@ -169,7 +169,7 @@ class ResourceController extends AbstractController
             $model = $modelObject->getModel();
             $models[$model] = $modelObject;
         }
-        $formModel->add('model', ChoiceType::class, ['choices' => $models]);
+        $formModel->add('model', ChoiceType::class, ['choices' => $models, 'label' => 'Modèle']);
         $formModel->handleRequest($request);
         if ($formModel->isSubmitted() && $formModel->isValid()) {
             $entityManager = $this->getDoctrine()->getManager();
