@@ -21,7 +21,9 @@
                     </tr>
                     <tr>
                         <th>Catégorie</th>
-                        <td>{{ resource.category.name }}</td>
+                        {% if resource.category %}
+                            <td>{{ resource.category.name }}</td>
+                        {% endif %}
                     </tr>
                     <tr>
                         <th>Type de machine</th>
