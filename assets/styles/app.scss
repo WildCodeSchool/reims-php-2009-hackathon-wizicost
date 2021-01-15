@@ -7,10 +7,6 @@ body {
    cursor: default;
 }
 
-// a {
-//   margin-bottom: 10px;
-// }
-
 /*
  * Top Bar
  */
@@ -43,7 +39,6 @@ body {
    background-color: #313c49;
  }
  .home-logo {
-   // width: 20%;
    height: 30%;
    margin-bottom: 2%;
  }
@@ -104,8 +99,6 @@ body {
    border: 1px solid #fbdf8f;
    border-radius: 10px;
    font-size: 24px;
-   // text-align: center;
-  //  padding: 1%;
  }
  .block-button div button:hover {
     background-color: #ff6a00;
@@ -197,7 +190,6 @@ body {
    border: 1px solid #fbdf8f;
    border-radius: 10px;
    font-size: 24px;
-   // text-align: center;
    padding: 1%;
    color: #5959a8;;
  }
@@ -269,11 +261,6 @@ body {
  }
 
  /*
-  * Login Page
-  */
-
-
- /*
   * Simulation tour
   */
   .center-block-new-simulation h1 {
@@ -332,6 +319,7 @@ body {
   #resource_category select, #resource_machine select, #resource_model select, #resource_option select, #resource_brand select {
     height: 36px;
     font-size: 13px;
+    text-align: center;
   }
   #resource_model ul {
     list-style: none;
@@ -358,14 +346,6 @@ body {
       padding: 5%;
     }
   }
-  //  .category {
-  //   display: flex;
-  //   flex-direction: column;
-  //   align-items: center;
-  //   justify-content: space-around;
-  //   border-radius: 10px;
-  //   margin: 5%;
-  //  }
    .categories-container a {
     display: flex;
     flex-direction: column;
@@ -393,9 +373,6 @@ body {
     -moz-box-shadow: 0px 5px 19px -8px #313c49;
     color: #ff6a00;
    }
-  //  .category {
-  //   width: 80%;
-  //  }
    .category img {
     width: 100%;
    }
@@ -428,7 +405,6 @@ body {
   td, th {
     border: 1px solid #00000024;
     border-collapse: collapse;
-/*     width: 50%; */
   }
   td, th {
     padding: 1%;
@@ -451,7 +427,6 @@ body {
    border: 1px solid #fbdf8f;
    border-radius: 10px;
    font-size: 24px;
-   // text-align: center;
    padding: 1%;
    color: #5959a8;;
  }
@@ -523,18 +498,13 @@ body {
     .bottom-links {
       flex-direction: column;
       align-items: center;
-      width: 80%;
+      width: 90%;
     }
   }
   .bottom-links a {
     width: 36%;
     margin: 0% 5%;
     text-decoration: none;
-  }
-  @media (max-width:900px) {
-    .bottom-links a {
-      width: 90%;
-    }
   }
    #resource_model ul {
      align-items: center;
@@ -543,5 +513,3 @@ body {
      text-align: center;
      color: #ff0000;
    }
-
-
