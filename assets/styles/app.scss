@@ -515,6 +515,11 @@ body {
     margin: 0% 5%;
     text-decoration: none;
   }
+  @media (max-width:767px) {
+    .bottom-links a {
+      width: 77%;
+    }
+  }
    #resource_model ul {
      align-items: center;
      padding: 0;
