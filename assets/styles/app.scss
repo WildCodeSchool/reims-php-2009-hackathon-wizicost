@@ -38,6 +38,13 @@ body {
  .center-block-home, .center-block-login, .center-block-register {
    background-color: #313c49;
  }
+ .center-block-home img {
+  border: 8px solid #fff;
+  border-radius: 50%;
+  box-shadow: 0px 5px 19px -8px #aeaeae;
+  -webkit-box-shadow: 0px 5px 19px -8px #aeaeae;
+  -moz-box-shadow: 0px 5px 19px -8px #aeaeae;
+ }
  .home-logo {
    height: 30%;
    margin-bottom: 2%;
