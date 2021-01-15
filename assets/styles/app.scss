@@ -428,7 +428,7 @@ body {
   td, th {
     border: 1px solid #00000024;
     border-collapse: collapse;
-    width: 50%;
+/*     width: 50%; */
   }
   td, th {
     padding: 1%;
@@ -502,6 +502,9 @@ body {
   }
   .center-block-ressource-list table {
     width: 60%;
+  }
+  .center-block-ressource-list table td {
+    text-align: center;
   }
   @media (max-width:767px) {
     .center-block-ressource-list table {
