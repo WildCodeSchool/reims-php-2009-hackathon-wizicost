@@ -18,7 +18,11 @@ class CbrandFixtures extends Fixture
         'Deutz-Fahr',
         'Horsch',
         'Same',
-        'Krone'
+        'Krone',
+        'Renault',
+        'Daaf',
+        'Scania',
+        'Mercedes',
     ];
 
     public function load(ObjectManager $manager)
@@ -26,7 +30,7 @@ class CbrandFixtures extends Fixture
         foreach (self::BRANDS as $key => $brand) {
             $brand = new Brand();
             $brand->setBrand(self::BRANDS[array_rand(self::BRANDS, 1)]);
-            $brand->addMachineType($this->getReference('type_' . rand(0, 7)));
+            $brand->addMachineType($this->getReference('type_' . rand(0, 8)));
             $manager->persist($brand);
             $this->addReference('brand_' . $key, $brand);
         }
