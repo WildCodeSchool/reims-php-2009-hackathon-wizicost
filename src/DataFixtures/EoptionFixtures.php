@@ -12,7 +12,7 @@ class EoptionFixtures extends Fixture
         'Gps',
         'Autoradio',
         'Climatisation',
-        'Cabine ferméé',
+        'Cabine fermée',
         'Attelage 3 points',
     ];
 
