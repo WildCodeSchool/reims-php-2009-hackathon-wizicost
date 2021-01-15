@@ -233,19 +233,7 @@ class ResourceController extends AbstractController
      */
     public function edit(Request $request, Resource $resource): Response
     {
-        $form = $this->createForm(ResourceType::class, $resource);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $this->getDoctrine()->getManager()->flush();
-
-            return $this->redirectToRoute('resource_index');
-        }
-
-        return $this->render('resource/edit.html.twig', [
-            'resource' => $resource,
-            'form' => $form->createView(),
-        ]);
+        return $this->redirectToRoute('resource_new_category', ['id' => $resource->getid(), $request]);
     }
 
     /**
