@@ -18,14 +18,16 @@ class DmodelFixtures extends Fixture
         'plus ultra',
         '750 cv',
         '325 kw',
+        '500dci',
+        '480dxi',
     ];
     public function load(ObjectManager $manager)
     {
         foreach (self::MODELS as $key => $modelsName) {
             $model = new Model();
             $model->setModel($modelsName);
-            $model->setMachineType($this->getReference('type_' . $key));
-            $model->setBrand($this->getReference('brand_' . $key));
+            $model->setMachineType($this->getReference('type_' . rand(0, 8)));
+            $model->setBrand($this->getReference('brand_' . rand(0, 13)));
             $manager->persist($model);
             $this->addReference('model_' . $key, $model);
         }
