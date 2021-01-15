@@ -160,7 +160,7 @@ class ResourceController extends AbstractController
      /**
      * @Route("/{resource}/{category}/{machineType}/{brand}/newModel", name="resource_new_model", methods={"GET","POST"})
      */
-    public function newModelForResource(Resource $resource, Category $category, MachineType $machineType,Brand $brand, BrandRepository $brandRepository, ModelRepository $modelRepository, Request $request): Response
+    public function newModelForResource(Resource $resource, Category $category, MachineType $machineType, Brand $brand, BrandRepository $brandRepository, ModelRepository $modelRepository, Request $request): Response
     {
         $modelObjects = $modelRepository->findBy(['brand' => $brand]);
         $models = [];
