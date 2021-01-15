@@ -25,7 +25,7 @@ class ResourceModelType extends AbstractType
                     'Moyen' => 'moyen',
                     'Vieu' => 'vieu',
                 ],
-                'label' => 'Anciennete du vehicule'
+                'label' => 'Ancienneté du vehicule'
             ])
             ->add('worktime', ChoiceType::class, [
                 'choices'  => [
@@ -33,7 +33,7 @@ class ResourceModelType extends AbstractType
                     'Moyen' => '800',
                     'Beaucoup' => '1200',
                 ],
-                'label' => 'Utilisation du vehicule'
+                'label' => 'Utilisation du vehicule à l\'année'
             ])
         ;
     }
